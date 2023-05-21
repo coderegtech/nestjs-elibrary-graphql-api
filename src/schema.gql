@@ -1,0 +1,112 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Book {
+  bid: ID!
+  book_author: String!
+  book_isbn: String!
+  book_name: String!
+  quantity: Int!
+  year_published: Int!
+}
+
+type Borrow {
+  action: String!
+  book_isbn: String!
+  borrow_id: Int!
+  coll_id: Int!
+  fines: Int!
+  student_id: Int!
+  time_borrow: DateTime!
+  time_return: DateTime!
+}
+
+input CreateBookInput {
+  book_author: String!
+  book_isbn: String!
+  book_name: String!
+  quantity: Int!
+  year_published: Int!
+}
+
+input CreateBorrowInput {
+  action: String!
+  book_isbn: String!
+  coll_id: Int!
+  fines: Int!
+  student_id: Int!
+  time_borrow: DateTime!
+  time_return: DateTime!
+}
+
+input CreateStudentInput {
+  address: String!
+  college_id: Int!
+  corporate_email: String!
+  sid: Int!
+  student_name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createBook(createBookInput: CreateBookInput!): Book!
+  createBorrow(createBorrowInput: CreateBorrowInput!): Borrow!
+  createStudent(createStudentInput: CreateStudentInput!): Student!
+  removeBook(id: Int!): Book!
+  removeBorrow(id: Int!): Borrow!
+  removeStudent(id: Int!): Student!
+  updateBook(updateBookInput: UpdateBookInput!): Book!
+  updateBorrow(updateBorrowInput: UpdateBorrowInput!): Borrow!
+  updateStudent(updateStudentInput: UpdateStudentInput!): Student!
+}
+
+type Query {
+  books: [Book!]!
+  borrow(bookname: String!): Borrow!
+  borrowedBooks: [Borrow!]!
+  searchBook(title: String!): [Book!]!
+  searchStudent(name: String!): [Student!]!
+  students: [Student!]!
+}
+
+type Student {
+  address: String!
+  college_id: Int!
+  corporate_email: String!
+  date_add: DateTime!
+  sid: Int!
+  student_name: String!
+}
+
+input UpdateBookInput {
+  bid: ID!
+  book_author: String!
+  book_isbn: String!
+  book_name: String!
+  quantity: Int!
+  year_published: Int!
+}
+
+input UpdateBorrowInput {
+  action: String!
+  book_isbn: String!
+  borrow_id: Int!
+  coll_id: Int!
+  fines: Int!
+  student_id: Int!
+  time_borrow: DateTime!
+  time_return: DateTime!
+}
+
+input UpdateStudentInput {
+  address: String!
+  college_id: Int!
+  corporate_email: String!
+  sid: Int!
+  student_name: String!
+}
