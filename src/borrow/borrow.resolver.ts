@@ -9,27 +9,27 @@ export class BorrowResolver {
   constructor(private readonly borrowService: BorrowService) { }
 
   @Mutation(() => Borrow)
-  createBorrow(@Args('createBorrowInput') createBorrowInput: CreateBorrowInput) {
-    return this.borrowService.addBorrowBook(createBorrowInput);
+  async createBorrow(@Args('createBorrowInput') createBorrowInput: CreateBorrowInput) {
+    return await this.borrowService.addBorrowBook(createBorrowInput);
   }
 
   @Query(() => [Borrow], { name: 'borrowedBooks' })
-  findAllBorrowedBooks() {
-    return this.borrowService.getAllBorrowedBooks();
+  async findAllBorrowedBooks() {
+    return await this.borrowService.getAllBorrowedBooks();
   }
 
-  @Query(() => Borrow, { name: 'borrow' })
-  findOne(@Args('bookname', { type: () => String }) title: string) {
-    return this.borrowService.searchBorrowedBook(title);
-  }
-
-  @Mutation(() => Borrow)
-  updateBorrow(@Args('updateBorrowInput') updateBorrowInput: UpdateBorrowInput) {
-    return this.borrowService.updateBorrowedBook(updateBorrowInput.borrow_id, updateBorrowInput);
+  @Query(() => [Borrow], { name: 'searchBorrowedBooks' })
+  async findOneBorrowedBook(@Args('borrowedBooks', { type: () => String }) name: string) {
+    return await this.borrowService.searchBorrowedBook(name);
   }
 
   @Mutation(() => Borrow)
-  removeBorrow(@Args('id', { type: () => Int }) id: number) {
-    return this.borrowService.removeBorrowedBook(id);
+  async updateBorrow(@Args('updateBorrowInput') updateBorrowInput: UpdateBorrowInput) {
+    return await this.borrowService.updateBorrowedBook(updateBorrowInput.borrow_id, updateBorrowInput);
+  }
+
+  @Mutation(() => Borrow)
+  async removeBorrow(@Args('id', { type: () => Int }) id: number) {
+    return await this.borrowService.removeBorrowedBook(id);
   }
 }

@@ -2,10 +2,10 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { StudentModule } from './student/student.module';
 import { BookModule } from './book/book.module';
 import { BorrowModule } from './borrow/borrow.module';
 import { PrismaService } from './prisma/prisma.service';
+import { StudentModule } from './student/student.module';
 
 
 @Module({
@@ -18,6 +18,7 @@ import { PrismaService } from './prisma/prisma.service';
     StudentModule,
     BookModule,
     BorrowModule,
+
   ],
   controllers: [],
   providers: [PrismaService],

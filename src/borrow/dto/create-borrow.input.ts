@@ -14,12 +14,14 @@ export class CreateBorrowInput {
   @Field()
   time_borrow: Date
 
-  @Field()
-  time_return: Date
+  @Field({ nullable: true })
+  time_return?: Date
 
   @Field(() => Int)
   fines: number
 
   @Field()
   action: string
+
+
 }

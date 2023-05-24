@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Books } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateBookInput } from './dto/create-book.input';
@@ -32,6 +32,7 @@ export class BookService {
     }
   }
 
+
   async searchBook(title: string): Promise<Books[]> {
     try {
 
@@ -50,7 +51,8 @@ export class BookService {
             }
           ]
 
-        }
+        },
+
       })
 
 
@@ -59,6 +61,14 @@ export class BookService {
     }
   }
 
+
+  async searchBookByISBN(isbn: string) {
+    const book = await this.prisma.books.findUnique({ where: { book_isbn: isbn } })
+
+    if (!book) throw new NotFoundException()
+
+    return book
+  }
 
   async updateBook(id: number, book: UpdateBookInput) {
     try {

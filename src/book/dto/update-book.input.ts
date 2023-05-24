@@ -7,17 +7,17 @@ export class UpdateBookInput extends PartialType(CreateBookInput) {
   bid: number
 
   @Field()
-  book_name: string
+  book_name?: string
 
   @Field()
-  book_author: string
+  book_author?: string
 
   @Field()
-  book_isbn: string
+  book_isbn?: string
 
   @Field(() => Int)
-  year_published: number
+  year_published?: number
 
   @Field(() => Int)
-  quantity: number
+  quantity?: number
 }

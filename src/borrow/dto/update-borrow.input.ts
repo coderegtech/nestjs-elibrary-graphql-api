@@ -26,4 +26,7 @@ export class UpdateBorrowInput extends PartialType(CreateBorrowInput) {
 
   @Field()
   action: string
+
+  @Field(() => Int)
+  book_id: number
 }

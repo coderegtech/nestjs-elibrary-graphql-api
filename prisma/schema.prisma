@@ -17,9 +17,9 @@ model Student {
   college_id      Int
   address         String
   date_add        DateTime  @default(now())
-  books           Books[]   @relation("StudentToBook")
   colleges        Colleges? @relation(fields: [college_id], references: [id])
-  Borrows         Borrow[]  @relation("StudentToBorrow")
+  books           Books[]   @relation("StudentToBook")
+  Borrow          Borrow?   @relation("StudentToBorrow")
 }
 
 model Books {
@@ -30,23 +30,23 @@ model Books {
   year_published Int
   quantity       Int
 
-  students Student[] @relation("StudentToBook")
   borrows  Borrow[]  @relation("BookToBorrow")
+  students Student[] @relation("StudentToBook")
 }
 
 model Borrow {
-  borrow_id   Int      @id @unique @default(autoincrement())
-  student_id  Int      @unique
+  borrow_id   Int       @id @unique @default(autoincrement())
+  student_id  Int       @unique
   coll_id     Int
-  book_isbn   String   @unique
-  time_borrow DateTime @default(now())
-  time_return DateTime @default(now())
+  book_isbn   String
+  time_borrow DateTime  @default(now())
+  time_return DateTime?
   fines       Int
   action      String
 
-  student Student? @relation("StudentToBorrow", fields: [student_id], references: [sid])
+  students Student? @relation("StudentToBorrow", fields: [student_id], references: [sid])
 
-  book Books? @relation("BookToBorrow", fields: [book_isbn], references: [book_isbn])
+  books Books? @relation("BookToBorrow", fields: [book_isbn], references: [book_isbn])
 
   colleges Colleges? @relation(fields: [coll_id], references: [id])
 }

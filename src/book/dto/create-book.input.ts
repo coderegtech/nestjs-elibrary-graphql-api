@@ -17,4 +17,5 @@ export class CreateBookInput {
 
   @Field(() => Int)
   quantity: number
+
 }

@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Colleges } from 'src/borrow/entities/borrow.entity';
 
 @ObjectType()
 export class Student {
@@ -19,4 +20,9 @@ export class Student {
 
   @Field()
   date_add: Date
+
+  @Field(() => [Colleges], { nullable: true })
+  course: Colleges
+
 }
+

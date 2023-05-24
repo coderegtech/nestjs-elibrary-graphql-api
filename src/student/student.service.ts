@@ -30,7 +30,15 @@ export class StudentService {
   async getAllStudent(): Promise<Student[]> {
     try {
 
-      return await this.prisma.student.findMany()
+      const results = await this.prisma.student.findMany({
+        include: {
+          colleges: true
+        }
+      })
+      console.log(results);
+
+
+      return results
 
     } catch (e) {
       throw new BadRequestException(e.message)
@@ -40,13 +48,22 @@ export class StudentService {
 
   async searchStudent(name: string): Promise<Student[]> {
     try {
-      return await this.prisma.student.findMany({
+      const results = await this.prisma.student.findMany({
         where: {
           student_name: {
             contains: name
-          }
+          },
+
         },
+        include: {
+          colleges: true
+        }
       })
+
+      console.log(results);
+
+
+      return results
 
     } catch (e) {
       throw new BadRequestException(e.message)

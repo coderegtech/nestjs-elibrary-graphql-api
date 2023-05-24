@@ -14,8 +14,8 @@ export class StudentResolver {
   }
 
   @Query(() => [Student], { name: 'students' })
-  findAll() {
-    return this.studentService.getAllStudent()
+  async findAll() {
+    return await this.studentService.getAllStudent()
   }
 
   @Query(() => [Student], { name: 'searchStudent' })

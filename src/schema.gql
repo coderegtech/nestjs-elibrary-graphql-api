@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Book {
-  bid: ID!
+  bid: Int!
   book_author: String!
   book_isbn: String!
   book_name: String!
@@ -14,12 +14,20 @@ type Book {
 type Borrow {
   action: String!
   book_isbn: String!
+  books: Book
   borrow_id: Int!
   coll_id: Int!
+  colleges: Colleges
   fines: Int!
   student_id: Int!
+  students: Student
   time_borrow: DateTime!
-  time_return: DateTime!
+  time_return: DateTime
+}
+
+type Colleges {
+  college_name: String!
+  id: Int!
 }
 
 input CreateBookInput {
@@ -37,7 +45,7 @@ input CreateBorrowInput {
   fines: Int!
   student_id: Int!
   time_borrow: DateTime!
-  time_return: DateTime!
+  time_return: DateTime
 }
 
 input CreateStudentInput {
@@ -67,9 +75,9 @@ type Mutation {
 
 type Query {
   books: [Book!]!
-  borrow(bookname: String!): Borrow!
   borrowedBooks: [Borrow!]!
   searchBook(title: String!): [Book!]!
+  searchBorrowedBooks(borrowedBooks: String!): [Borrow!]!
   searchStudent(name: String!): [Student!]!
   students: [Student!]!
 }
@@ -78,6 +86,7 @@ type Student {
   address: String!
   college_id: Int!
   corporate_email: String!
+  course: [Colleges!]
   date_add: DateTime!
   sid: Int!
   student_name: String!
@@ -94,6 +103,7 @@ input UpdateBookInput {
 
 input UpdateBorrowInput {
   action: String!
+  book_id: Int!
   book_isbn: String!
   borrow_id: Int!
   coll_id: Int!

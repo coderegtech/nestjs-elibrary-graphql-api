@@ -1,8 +1,8 @@
-import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Book {
-  @Field(() => ID)
+  @Field(() => Int)
   bid: number
 
   @Field()
@@ -19,5 +19,7 @@ export class Book {
 
   @Field(() => Int)
   quantity: number
+
+
 }
 
