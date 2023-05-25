@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Books } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateBookInput } from './dto/create-book.input';
@@ -6,9 +10,9 @@ import { UpdateBookInput } from './dto/update-book.input';
 
 @Injectable()
 export class BookService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  async addBook(book: CreateBookInput) {
+  async addBook(book: CreateBookInput): Promise<Books> {
     try {
       return await this.prisma.books.create({
         data: {
@@ -16,75 +20,71 @@ export class BookService {
           book_name: book.book_name,
           book_author: book.book_author,
           year_published: book.year_published,
-          quantity: book.quantity
-        }
-      })
+          quantity: book.quantity,
+        },
+      });
     } catch (e) {
-      throw new BadRequestException(e.message)
+      throw new BadRequestException(e.message);
     }
   }
 
   async getAllBooks(): Promise<Books[]> {
     try {
-      return await this.prisma.books.findMany()
+      return await this.prisma.books.findMany();
     } catch (e) {
-      throw new BadRequestException(e.message)
+      throw new BadRequestException(e.message);
     }
   }
 
-
   async searchBook(title: string): Promise<Books[]> {
     try {
-
       return await this.prisma.books.findMany({
         where: {
           OR: [
             {
               book_name: {
-                contains: title
-              }
+                contains: title,
+              },
             },
             {
               book_author: {
-                contains: title
-              }
-            }
-          ]
-
+                contains: title,
+              },
+            },
+          ],
         },
-
-      })
-
-
+      });
     } catch (e) {
-      throw new BadRequestException(e.message)
+      throw new BadRequestException(e.message);
     }
   }
-
 
   async searchBookByISBN(isbn: string) {
-    const book = await this.prisma.books.findUnique({ where: { book_isbn: isbn } })
+    const book = await this.prisma.books.findUnique({
+      where: { book_isbn: isbn },
+    });
 
-    if (!book) throw new NotFoundException()
+    if (!book) throw new NotFoundException();
 
-    return book
+    return book;
   }
 
-  async updateBook(id: number, book: UpdateBookInput) {
+  async updateBook(id: number, book: UpdateBookInput): Promise<Books> {
     try {
-      return await this.prisma.books.update({ where: { bid: id }, data: { ...book } })
+      return await this.prisma.books.update({
+        where: { bid: id },
+        data: { ...book },
+      });
     } catch (e) {
-      throw new BadRequestException(e.message)
+      throw new BadRequestException(e.message);
     }
   }
 
-  async removeBook(id: number) {
+  async removeBook(id: number): Promise<Books> {
     try {
-      return await this.prisma.books.delete({ where: { bid: id } })
+      return await this.prisma.books.delete({ where: { bid: id } });
     } catch (e) {
-      throw new BadRequestException(e.message)
+      throw new BadRequestException(e.message);
     }
   }
-
-
 }

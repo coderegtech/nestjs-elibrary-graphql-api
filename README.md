@@ -58,6 +58,118 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Use with GraphQL
+
+Using the App
+The app is accessible at localhost:3000/graphql. You can create, update, and delete todos using the GraphQL API.
+
+## GraphQL Adding Mutations
+
+```
+To add a book, use the following query:
+
+mutation addBook($input: CreateBookInput!){
+  createBook(createBookInput: $input) {
+    bid
+    book_name
+    book_isbn
+    book_author
+    year_published
+  }
+}
+
+
+To add a student, use the following query:
+
+mutation addStudent($input: CreateStudentInput!){
+  createStudent(createStudentInput: $input) {
+      sid,
+    student_name,
+    corporate_email,
+    college_id,
+    address,
+    date_add
+  }
+}
+
+To add a borrow book, use the following query:
+
+mutation addBorrowBook($input: CreateBorrowInput!){
+  createBorrow(createBorrowInput: $input) {
+    student_id,
+    book_isbn
+    time_borrow
+    time_return
+    fines
+    action
+  }
+}
+
+```
+
+## GraphQL Querying
+
+```
+To show all books, use the following query:
+
+query {
+  books{
+    bid,
+    book_name,
+    book_author,
+    book_isbn,
+		quantity,
+    year_published
+
+  }
+}
+
+
+To show all students, use the following query:
+
+query {
+  students {
+    sid,
+    student_name,
+    corporate_email,
+    college_id,
+    address,
+    date_add,
+
+    course {
+      id
+      college_name
+    }
+  }
+}
+
+To show all borrowed books, use the following query:
+
+query {
+  borrowedBooks {
+    student_id
+    borrow_id
+    time_borrow
+    time_return
+    fines
+    action
+      books {
+      book_name
+      book_isbn
+    }
+    students {
+      sid
+      student_name
+    }
+    colleges {
+      college_name
+    }
+  }
+}
+
+
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

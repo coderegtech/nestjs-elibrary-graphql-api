@@ -26,6 +26,7 @@ type Borrow {
 }
 
 type Colleges {
+  borrowCount: Borrow!
   college_name: String!
   id: Int!
 }

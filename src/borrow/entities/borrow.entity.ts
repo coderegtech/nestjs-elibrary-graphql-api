@@ -2,53 +2,50 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Book } from 'src/book/entities/book.entity';
 import { Student } from 'src/student/entities/student.entity';
 
-
 @ObjectType()
 export class Colleges {
   @Field(() => Int)
-  id: number
+  id: number;
 
   @Field()
-  college_name: string
-}
+  college_name: string;
 
+  @Field(() => Borrow)
+  borrowCount: Borrow[];
+}
 
 @ObjectType()
 export class Borrow {
   @Field(() => Int)
-  borrow_id: number
+  borrow_id: number;
 
   @Field(() => Int)
-  student_id: number
+  student_id: number;
 
   @Field(() => Int)
-  coll_id: number
+  coll_id: number;
 
   @Field()
-  book_isbn: string
+  book_isbn: string;
 
   @Field()
-  time_borrow: Date
+  time_borrow: Date;
 
   @Field({ nullable: true })
-  time_return?: Date
+  time_return?: Date;
 
   @Field(() => Int)
-  fines: number
+  fines: number;
 
   @Field()
-  action: string
-
+  action: string;
 
   @Field(() => Book, { nullable: true })
-  books: Book
+  books: Book;
 
   @Field(() => Student, { nullable: true })
-  students: Student
+  students: Student;
 
   @Field(() => Colleges, { nullable: true })
-  colleges: Colleges
+  colleges: Colleges;
 }
-
-
-
