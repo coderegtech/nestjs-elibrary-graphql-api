@@ -24,12 +24,14 @@ export class StudentService {
     }
   }
 
-  async getAllStudent(): Promise<Student[]> {
+  async getAllStudent(page: number, size: number): Promise<Student[]> {
     try {
       const results = await this.prisma.student.findMany({
         include: {
           colleges: true,
         },
+        skip: (page - 1) * size,
+        take: size,
       });
       console.log(results);
 

@@ -78,7 +78,7 @@ export class BorrowService {
     }
   }
 
-  async getAllBorrowedBooks(): Promise<Borrow[]> {
+  async getAllBorrowedBooks(page: number, size: number): Promise<Borrow[]> {
     const results = await this.prisma.borrow.findMany({
       include: {
         books: {
@@ -100,6 +100,8 @@ export class BorrowService {
           },
         },
       },
+      skip: (page - 1) * size,
+      take: size,
     });
 
     if (!results) throw new BadRequestException();

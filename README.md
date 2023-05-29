@@ -113,7 +113,7 @@ mutation addBorrowBook($input: CreateBorrowInput!){
 To show all books, use the following query:
 
 query {
-  books{
+  books(page: 1, size: 10) {
     bid,
     book_name,
     book_author,
@@ -128,7 +128,7 @@ query {
 To show all students, use the following query:
 
 query {
-  students {
+  students(page: 1, size: 10)  {
     sid,
     student_name,
     corporate_email,
@@ -146,7 +146,7 @@ query {
 To show all borrowed books, use the following query:
 
 query {
-  borrowedBooks {
+  borrowedBooks(page: 1, size: 10)  {
     student_id
     borrow_id
     time_borrow

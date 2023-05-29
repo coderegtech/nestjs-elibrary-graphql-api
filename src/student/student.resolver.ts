@@ -6,16 +6,21 @@ import { StudentService } from './student.service';
 
 @Resolver(() => Student)
 export class StudentResolver {
-  constructor(private readonly studentService: StudentService) { }
+  constructor(private readonly studentService: StudentService) {}
 
   @Mutation(() => Student)
-  createStudent(@Args('createStudentInput') createStudentInput: CreateStudentInput) {
+  createStudent(
+    @Args('createStudentInput') createStudentInput: CreateStudentInput,
+  ) {
     return this.studentService.addStudent(createStudentInput);
   }
 
   @Query(() => [Student], { name: 'students' })
-  async findAll() {
-    return await this.studentService.getAllStudent()
+  async findAll(
+    @Args('page', { type: () => Number }) page: number,
+    @Args('size', { type: () => Number }) size: number,
+  ) {
+    return await this.studentService.getAllStudent(page, size);
   }
 
   @Query(() => [Student], { name: 'searchStudent' })
@@ -24,8 +29,13 @@ export class StudentResolver {
   }
 
   @Mutation(() => Student)
-  updateStudent(@Args('updateStudentInput') updateStudentInput: UpdateStudentInput) {
-    return this.studentService.updateOneStudent(updateStudentInput.sid, updateStudentInput);
+  updateStudent(
+    @Args('updateStudentInput') updateStudentInput: UpdateStudentInput,
+  ) {
+    return this.studentService.updateOneStudent(
+      updateStudentInput.sid,
+      updateStudentInput,
+    );
   }
 
   @Mutation(() => Student)

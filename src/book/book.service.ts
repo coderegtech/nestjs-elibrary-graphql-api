@@ -28,9 +28,12 @@ export class BookService {
     }
   }
 
-  async getAllBooks(): Promise<Books[]> {
+  async getAllBooks(page: number, size: number): Promise<Books[]> {
     try {
-      return await this.prisma.books.findMany();
+      return await this.prisma.books.findMany({
+        skip: (page - 1) * size,
+        take: size,
+      });
     } catch (e) {
       throw new BadRequestException(e.message);
     }

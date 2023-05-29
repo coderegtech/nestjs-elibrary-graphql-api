@@ -75,12 +75,12 @@ type Mutation {
 }
 
 type Query {
-  books: [Book!]!
-  borrowedBooks: [Borrow!]!
+  books(page: Float!, size: Float!): [Book!]!
+  borrowedBooks(page: Float!, size: Float!): [Borrow!]!
   searchBook(title: String!): [Book!]!
   searchBorrowedBooks(borrowedBooks: String!): [Borrow!]!
   searchStudent(name: String!): [Student!]!
-  students: [Student!]!
+  students(page: Float!, size: Float!): [Student!]!
 }
 
 type Student {

@@ -6,7 +6,7 @@ import { Book } from './entities/book.entity';
 
 @Resolver(() => Book)
 export class BookResolver {
-  constructor(private readonly bookService: BookService) { }
+  constructor(private readonly bookService: BookService) {}
 
   @Mutation(() => Book)
   createBook(@Args('createBookInput') createBookInput: CreateBookInput) {
@@ -14,8 +14,11 @@ export class BookResolver {
   }
 
   @Query(() => [Book], { name: 'books' })
-  findAll() {
-    return this.bookService.getAllBooks();
+  findAll(
+    @Args('page', { type: () => Number }) page: number,
+    @Args('size', { type: () => Number }) size: number,
+  ) {
+    return this.bookService.getAllBooks(page, size);
   }
 
   @Query(() => [Book], { name: 'searchBook' })
