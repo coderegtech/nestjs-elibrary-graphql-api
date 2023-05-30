@@ -143,6 +143,7 @@ query {
   }
 }
 
+
 To show all borrowed books, use the following query:
 
 query {
